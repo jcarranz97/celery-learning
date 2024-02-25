@@ -5,4 +5,5 @@ from pydantic import BaseModel
 
 class TaskId(BaseModel):
     """Schema for a task id."""
+
     task_id: str
