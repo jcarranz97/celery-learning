@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 """FastAPI router related to group1."""
 from fastapi import APIRouter
+from fastapi import Depends
 from group1.tasks import add
 from schemas import TaskId
+from auth import get_current_username
 
 router = APIRouter()
 
@@ -25,7 +27,12 @@ async def send_add_task(a: int, b: int) -> TaskId:
     return TaskId(task_id=task.id)
 
 
-@router.get("/get-result")
+# This route is protected by the get_current_username dependency
+# This means that the client must send a valid token in the Authorization
+# header to access this route, and the username of the token will be
+# available in the get_current_username function, but it won't be used
+# in this route.
+@router.get("/get-result", dependencies=[Depends(get_current_username)])
 async def get_task_result(task_id: str):
     """Get the result of a task.
 
