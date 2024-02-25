@@ -7,7 +7,7 @@ services:
   app:
     container_name: app
     build: .
-    command: uvicorn tasks:app --host 0.0.0.0 --reload
+    command: uvicorn main:app --host 0.0.0.0 --reload
     volumes:
       - .:/app
     ports:
