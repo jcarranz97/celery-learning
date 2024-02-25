@@ -5,5 +5,5 @@ celery_app = Celery(
     'tasks',
     broker='redis://redis/0',
     backend='redis://redis/0',
-    include=['tasks.tasks1']
+    include=['group1.tasks']
 )
