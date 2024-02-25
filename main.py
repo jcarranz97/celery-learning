@@ -1,26 +1,15 @@
+import asyncio
 from fastapi import FastAPI
 from fastapi import WebSocket
-from celery_worker import celery_app
-from group1.tasks import add
-from group2.tasks import multiply
 from celery.result import AsyncResult
-import asyncio
+from celery_worker import celery_app
+from group1.router import router as group1_router
+from group2.router import router as group2_router
 
-import time
 
 app = FastAPI()
-
-
-@app.get("/process")
-async def process_endpoint(a: int, b: int):
-    task = add.delay(a, b)
-    return {"task_id": task.id}
-
-
-@app.get("/multiply")
-async def get_multiply(a: int, b: int):
-    task = multiply.delay(a, b)
-    return {"task_id": task.id}
+app.include_router(group1_router, prefix="/group1")
+app.include_router(group2_router, prefix="/group2")
 
 
 @app.get("/")
