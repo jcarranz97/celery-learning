@@ -2,6 +2,8 @@
 
 Commands:
 - docker-compose up --build
+- Keep Docker running (detached): docker-compose up -d
+- Shutdown dockers: docker-compose down
 
 When adding a worker that is not inside the docker, we can use
 ```python
