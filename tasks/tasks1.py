@@ -1,7 +1,7 @@
-from celery_worker import celery_app
+from celery import shared_task
 from time import sleep
 
-@celery_app.task
+@shared_task
 def add(a, b):
     for i in range(a, b):
        print(i)

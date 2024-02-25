@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi import WebSocket
 from celery_worker import celery_app
-from tasks1 import add
+from tasks.tasks1 import add
 from celery.result import AsyncResult
 import asyncio
 
