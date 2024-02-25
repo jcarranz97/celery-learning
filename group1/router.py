@@ -5,7 +5,7 @@ from schemas import TaskId
 router = APIRouter()
 
 
-@router.get("/request-add")
+@router.post("/request-add")
 async def send_add_task(a: int, b: int) -> TaskId:
     task = add.delay(a, b)
     return TaskId(task_id=task.id)
