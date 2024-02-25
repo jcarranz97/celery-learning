@@ -1,10 +1,13 @@
 import asyncio
 from fastapi import FastAPI
 from fastapi import WebSocket
+from fastapi import Depends
+from typing import Annotated
 from celery.result import AsyncResult
 from celery_worker import celery_app
 from group1.router import router as group1_router
 from group2.router import router as group2_router
+from auth import get_current_username
 
 
 app = FastAPI()
@@ -33,3 +36,8 @@ async def websocket_endpoint(websocket: WebSocket, task_id: str):
         await websocket.send_text(f"Task {task_id} succeeded: {result.result}")
     else:
         await websocket.send_text(f"Task {task_id} failed: {result.result}")
+
+
+@app.get("/users/me")
+def read_current_user(username: Annotated[str, Depends(get_current_username)]):
+    return {"username": username}
