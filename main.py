@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi import WebSocket
 from celery_worker import celery_app
 from group1.tasks import add
+from group2.tasks import multiply
 from celery.result import AsyncResult
 import asyncio
 
@@ -13,6 +14,12 @@ app = FastAPI()
 @app.get("/process")
 async def process_endpoint(a: int, b: int):
     task = add.delay(a, b)
+    return {"task_id": task.id}
+
+
+@app.get("/multiply")
+async def get_multiply(a: int, b: int):
+    task = multiply.delay(a, b)
     return {"task_id": task.id}
 
 
