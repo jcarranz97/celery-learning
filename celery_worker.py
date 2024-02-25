@@ -1,5 +1,6 @@
+#!/usr/bin/env python
+"""Celery worker module."""
 from celery import Celery
-from time import sleep
 
 celery_app = Celery(
     "tasks",

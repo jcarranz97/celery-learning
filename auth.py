@@ -1,7 +1,12 @@
+#!/usr/bin/env python3
+"""Module that defines the authentication for the API."""
 import secrets
 from typing import Annotated
-from fastapi import Depends, FastAPI, HTTPException, status
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from fastapi import Depends
+from fastapi.security import HTTPBasic
+from fastapi.security.http import HTTPBasicCredentials
+from fastapi import HTTPException
+from fastapi import status
 
 
 security = HTTPBasic()
@@ -10,6 +15,7 @@ security = HTTPBasic()
 def get_current_username(
     credentials: Annotated[HTTPBasicCredentials, Depends(security)]
 ):
+    """Function to authenticate and get the current username."""
     current_username_bytes = credentials.username.encode("utf8")
     correct_username_bytes = b"stanleyjobson"
     is_correct_username = secrets.compare_digest(
