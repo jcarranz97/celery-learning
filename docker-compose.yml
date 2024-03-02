@@ -14,6 +14,7 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --reload
     volumes:
       - .:/app
+      - lmdb_files:/root/lmdb_files/
     ports:
       - 8000:8000
     depends_on:
@@ -26,6 +27,7 @@ services:
       replicas: 4
     volumes:
       - .:/app
+      - lmdb_files:/root/lmdb_files/
     depends_on:
       - redis
       - app
@@ -42,3 +44,4 @@ services:
       - redis
 volumes:
   redis-data:
+  lmdb_files:
